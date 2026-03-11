@@ -82,12 +82,14 @@ void analyze_packet(uint8_t* buf) {
 int main() {
 	FILE* f = fopen("telemedium.mpg", "rb");
 	size_t offset = 0;
-	for (;;) {
+	size_t i = 0;
+	for (;;i++) {
 		uint8_t buf[188];
 		int s;
 		size_t n = fread(buf, sizeof(*buf), 188, f);
 		if (feof(f)) { printf("file ended\n"); break; }
 		if (n != 188) { printf("read failed\n"); break; }
+		printf("%zu: ", i);
 		analyze_packet(buf);
 		offset += 188;
 	}
